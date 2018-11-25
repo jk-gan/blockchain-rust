@@ -14,11 +14,11 @@ pub struct Block {
 }
 
 impl Block {
-    pub fn new() -> Block {
+    pub fn new(data: &str, prev_block_hash: Sha256Hash) -> Block {
         let mut block = Block {
             timestamp: Utc::now().timestamp(),
-            data: "testing".to_owned().into(),
-            prev_block_hash: Sha256Hash::default(),
+            data: data.to_owned().into(),
+            prev_block_hash: prev_block_hash,
             hash: Sha256Hash::default()
         };
         block.set_hash();
