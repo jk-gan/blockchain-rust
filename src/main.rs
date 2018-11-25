@@ -1,4 +1,5 @@
 mod block;
+mod blockchain;
 mod utils;
 
 use crate::block::{Block, Sha256Hash};

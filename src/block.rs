@@ -2,13 +2,13 @@ use crate::utils;
 use ring::digest;
 use chrono::prelude::*;
 
+// 256-bit (32 bytes) sha256 algorithm
 pub type Sha256Hash = [u8; 32];
 
 #[derive(Debug)]
 pub struct Block {
     pub timestamp: i64,
     pub data: Vec<u8>,
-    // 256-bit (32 bytes) sha256 algorithm
     pub prev_block_hash: Sha256Hash,
     pub hash: Sha256Hash,
 }
