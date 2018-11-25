@@ -2,9 +2,16 @@ mod block;
 mod blockchain;
 mod utils;
 
-use crate::block::{Block, Sha256Hash};
+use crate::blockchain::Blockchain;
 
 fn main() {
-    let block = Block::new("Testing", Sha256Hash::default());
-    println!("{:?}", block);
+    let mut blockchain = Blockchain::new();
+    blockchain.add_block("Send 1 BTC to A");
+    blockchain.add_block("Send 2 more BTC to A");
+
+    for block in blockchain.blocks {
+        println!("Prev Hash: {:?}", block.prev_block_hash);
+        println!("Block Data: {:?}", block.data);
+        println!("Hash: {:?}", block.hash);
+    }
 }
