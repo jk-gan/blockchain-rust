@@ -1,8 +1,10 @@
 use crate::utils;
 use ring::digest;
+use chrono::prelude::*;
 
 pub type Sha256Hash = [u8; 32];
 
+#[derive(Debug)]
 pub struct Block {
     pub timestamp: i64,
     pub data: Vec<u8>,
@@ -12,10 +14,22 @@ pub struct Block {
 }
 
 impl Block {
-    pub fn set_hash(&self) {
+    pub fn new() -> Block {
+        let mut block = Block {
+            timestamp: Utc::now().timestamp(),
+            data: "testing".to_owned().into(),
+            prev_block_hash: Sha256Hash::default(),
+            hash: Sha256Hash::default()
+        };
+        block.set_hash();
+        block
+    }
+
+    pub fn set_hash(&mut self) {
         let result = digest::digest(&digest::SHA256, &self.headers_in_bytes());
-        println!("{:?}", self.headers_in_bytes());
-        println!("{:?}", result.as_ref());
+        let mut a: Sha256Hash = Default::default();
+        a.copy_from_slice(&result.as_ref()[..]);
+        self.hash = a;
     }
 
     fn headers_in_bytes(&self) -> Vec<u8> {
