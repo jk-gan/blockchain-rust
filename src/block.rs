@@ -1,6 +1,6 @@
 use crate::utils;
-use ring::digest;
 use chrono::prelude::*;
+use ring::digest;
 
 // 256-bit (32 bytes) sha256 algorithm
 pub type Sha256Hash = [u8; 32];
@@ -19,7 +19,7 @@ impl Block {
             timestamp: Utc::now().timestamp(),
             data: data.to_owned().into(),
             prev_block_hash: prev_block_hash,
-            hash: Sha256Hash::default()
+            hash: Sha256Hash::default(),
         };
         block.set_hash();
         block
